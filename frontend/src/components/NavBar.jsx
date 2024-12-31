@@ -11,6 +11,7 @@ export default function NavBar() {
     try {
       const res = await dispatch(logOutUser()).unwrap();
       navigate("/login");
+      localStorage.clear(); // Clear local storage
       console.log(res);
     } catch (err) {
       console.log(err);
@@ -18,7 +19,7 @@ export default function NavBar() {
   };
 
   return (
-    <div className="flex p-4 bg-white shadow-lg">
+    <div className="flex p-4 bg-white shadow-lg fixed w-full top-0 z-50">
       <div className="logo w-1/2">
         <h2>Blog</h2>
       </div>

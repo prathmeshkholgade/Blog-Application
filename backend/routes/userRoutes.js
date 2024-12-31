@@ -59,7 +59,7 @@ router.get("/profile", verifyUser, (req, res) => {
 });
 
 router.post("/logout", (req, res, next) => {
-  res.clearCookie("token");
+  res.clearCookie("token", { httpOnly: true, secure: true });
   req.user = " ";
   res.status(200).json({ message: "logout successfully" });
 });
