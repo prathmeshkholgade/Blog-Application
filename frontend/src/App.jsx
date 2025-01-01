@@ -6,6 +6,7 @@ import LoginPage from "./pages/LoginPage";
 import CreatePostPage from "./pages/CreatePostPage";
 import Home from "./pages/Home";
 import BlogDetails from "./components/BlogDetails";
+import Editbox from "./components/Editbox";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/blog/:id",
         element: <BlogDetails />,
+      },
+      {
+        path: "/edit-post/:id",
+        element: <Editbox />,
       },
     ],
   },

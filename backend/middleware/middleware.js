@@ -3,7 +3,7 @@ const ExpressError = require("../utils/ExpressError");
 const jwt = require("jsonwebtoken");
 
 module.exports.verifyUser = async (req, res, next) => {
-  console.log(req.cookies);
+  // console.log(req.cookies);
   const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
   if (!token) {
     return next(new ExpressError(401, "Unauthorized"));

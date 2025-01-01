@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { deletePost, fetchSinglePost } from "../app/features/post/postSlice";
 import "remixicon/fonts/remixicon.css";
 export default function BlogDetails() {
@@ -10,6 +10,11 @@ export default function BlogDetails() {
   const post = useSelector((state) => state?.Post?.Post);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // const handleEdit = (id) => {
+  //   navigate(`/edit-post/${id}`);
+  // };
+
   const handleDelete = async (id) => {
     console.log(id);
     try {
@@ -62,7 +67,15 @@ export default function BlogDetails() {
             {toggleMenu && (
               <div className=" absolute right-0 top-9 rounded-sm bg-slate-50 shadow-sm p-4 px-8">
                 <ul className="flex flex-col gap-2">
-                  <li className="hover:text-gray-500">Edit</li>
+                  <Link to={`/edit-post/${post._id}`}>
+                    {" "}
+                    <li
+                      // onClick={() => handleEdit(post._id)}
+                      className="hover:text-gray-500"
+                    >
+                      Edit
+                    </li>
+                  </Link>
                   <li
                     className="hover:text-gray-500"
                     onClick={() => handleDelete(post._id)}

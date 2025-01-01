@@ -9,7 +9,7 @@ export default function Layout() {
       <div>
         <Navbar />
       </div>
-      <div className="flex-grow mt-14">
+      <div className="flex-grow my-14">
         <Outlet />
       </div>
       <div className="">

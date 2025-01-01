@@ -9,6 +9,36 @@ const Post = require("../models/postSchema");
 const WrapAsync = require("../utils/WrapAsync");
 const router = express.Router();
 
+router.put(
+  "/posts/edit/:id",
+  upload.single("image"),
+  WrapAsync(async (req, res, next) => {
+    const { id } = req.params;
+    const { title, content } = req.body;
+
+    const image = req.file;
+    console.log("this is img data", image);
+    // if (!title && !content && !image) {
+    //   return res.status(400).json({ message: "No fields to update" });
+    // }
+    const existingPost = await Post.findById(id);
+    if (!existingPost) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+    const updatedPost = await Post.findByIdAndUpdate(
+      id,
+      {
+        ...(title && { title }), // Update title if provided
+        ...(content && { content }), // Update content if provided
+        ...(image && { image: { url: image.path, fileName: image.filename } }), // Update image if provided
+      },
+      { new: true }
+    );
+    console.log(updatedPost);
+    res.status(200).json({ message: "Post updated successfully", updatedPost });
+  })
+);
+
 router.post(
   "/add",
   verifyUser,
@@ -41,7 +71,7 @@ router.get("/posts", async (req, res, next) => {
 router.get("/posts/:id", async (req, res, next) => {
   const { id } = req.params;
   const post = await Post.findById(id).populate("author");
-  console.log(post);
+
   res.status(200).json(post);
 });
 
@@ -66,4 +96,5 @@ router.delete(
     res.status(200).json({ message: "Deleted successfully" });
   })
 );
+
 module.exports = router;

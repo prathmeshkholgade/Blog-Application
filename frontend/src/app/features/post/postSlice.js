@@ -50,6 +50,28 @@ export const deletePost = createAsyncThunk(
     }
   }
 );
+export const updatePost = createAsyncThunk(
+  "post/editpost",
+  async ({ id, data }, thunkAPI) => {
+    try {
+      const response = await axios.put(
+        `${baseUrl}/blog/posts/edit/${id}`,
+        data,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data", // Or JSON, depending on your request
+          },
+        }
+      );
+      console.log(response);
+
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+    }
+  }
+);
 
 export const createPost = createAsyncThunk(
   "post/create",
@@ -82,7 +104,8 @@ const postSlice = createSlice({
         state.Post = action.payload;
       })
       .addCase(createPost.fulfilled, (state, action) => {})
-      .addCase(deletePost.fulfilled, (state, action) => {});
+      .addCase(deletePost.fulfilled, (state, action) => {})
+      .addCase(updatePost.fulfilled, (state, action) => {});
   },
 });
 

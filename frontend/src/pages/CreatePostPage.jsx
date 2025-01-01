@@ -1,11 +1,12 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { createPost } from "../app/features/post/postSlice";
 export default function CreatePostPage() {
   const { register, handleSubmit, errors } = useForm();
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const onSubmit = async (data) => {
     try {
       console.log(data);
@@ -13,8 +14,8 @@ export default function CreatePostPage() {
       formData.append("title", data.title);
       formData.append("content", data.content);
       formData.append("image", data.image[0]);
-      const res = await dispatch(createPost(formData)).unwrap();
-      console.log(res);
+      await dispatch(createPost(formData)).unwrap();
+      navigate("/");
     } catch (err) {
       console.log(err);
     }

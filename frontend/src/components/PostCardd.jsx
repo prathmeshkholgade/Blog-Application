@@ -8,10 +8,10 @@ export default function PostCardd({ post }) {
       ? `${words.slice(0, wordLimit).join(" ")}...`
       : content;
   };
-  const handleOnClick = () => {};
+
   return (
     <Link to={`/blog/${post._id}`}>
-      <div className="w-[300px] h-[300px] shadow-md  rounded-md">
+      <div className="w-[300px] h-[310px]  shadow-md  rounded-md mt-10 overflow-hidden">
         <div className="w-full h-[200px]">
           <img
             src={post.image.url}
@@ -20,9 +20,11 @@ export default function PostCardd({ post }) {
           />
         </div>
         <div className="content p-2">
-          <h4 className=" font-medium mb-2">{post.title}</h4>
-          <p className="text-sm text-gray-700">
-            {truncateContent(post.content, 12)}
+          <h4 className=" font-medium text-base mb-2 leading-none">
+            {post.title}
+          </h4>
+          <p className="text-sm text-gray-700 py-2">
+            {truncateContent(post.content, 9)}
           </p>
         </div>
       </div>

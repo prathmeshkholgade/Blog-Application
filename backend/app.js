@@ -13,8 +13,8 @@ const postRoutes = require("./routes/postRoutes");
 
 app.use(
   cors({
-    origin: "http://localhost:5173/",
-    methods: ["get", "post", "delete", "put", "patch"],
+    origin: "http://localhost:5173",
+    methods: ["PATCH", "GET", "POST", "DELETE", "PUT"], // Ensure PATCH is included here
     allowedHeaders: [
       "Content-Type",
       "Authorization",
